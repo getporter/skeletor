@@ -12,7 +12,7 @@ type InstallAction struct {
 }
 
 type InstallStep struct {
-	InstallArguments `yaml:"azure"`
+	InstallArguments `yaml:"skeletor"`
 }
 
 type InstallArguments struct {

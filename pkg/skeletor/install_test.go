@@ -37,10 +37,9 @@ func TestMixin_UnmarshalInstallAction(t *testing.T) {
 	step := action.Steps[0]
 
 	assert.Equal(t, "Summon Minion", step.Description)
-	assert.NotEmpty(t, step.Outputs)
+	require.NotEmpty(t, step.Outputs)
 	assert.Equal(t, Output{"VICTORY", "VICTORY_STATUS"}, step.Outputs[0])
 
-	assert.Equal(t, "mysql", step.Type)
 	assert.Equal(t, "man-e-faces", step.Name)
 
 	assert.Equal(t, map[string]interface{}{"species": "human"}, step.Parameters)
