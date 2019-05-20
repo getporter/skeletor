@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "installStep": {
+      "type": "object",
+      "properties": {
+        "skeletor": { 
+          "type": "object",
+          "properties": {
+            "description": {
+              "$ref": "#/definitions/stepDescription"
+            },
+            "name": {
+              "type": "string"
+            },
+            "parameters": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "parameters"
+          ]
+        }
+      },
+      "required": [
+        "skeletor"
+      ],
+      "additionalProperties": false
+    },
+    "upgradeStep": {
+      "$ref": "#/definitions/unimplementedStep"
+    },
+    "uninstallStep": {
+      "$ref": "#/definitions/unimplementedStep"
+    },
+    "unimplementedStep": {
+      "type": "object",
+      "properties": {
+        "skeletor": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "$ref": "#/definitions/stepDescription"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "description"
+          ]
+        }
+      },
+      "required": [
+        "skeletor"
+      ]
+    },
+    "stepDescription": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "type": "object",
+  "properties": {
+    "install": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/installStep"
+      }
+    },
+    "upgrade": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/upgradeStep"
+      }
+    },
+    "uninstall": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/uninstallStep"
+      }
+    }
+  },
+  "additionalProperties": false
+}
