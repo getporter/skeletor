@@ -39,6 +39,8 @@ func (m *Mixin) Install() error {
 	step := action.Steps[0]
 
 	fmt.Fprintf(m.Out, "Starting installation operations: %s\n", step.Name)
+	// TODO: Implement the install logic
+	// See the helm mixin for an example https://github.com/deislabs/porter-helm/blob/7c5a656f0c38d23e7d4efc8a4ba26d03f06c06e8/pkg/helm/install.go#L55
 	fmt.Fprintf(m.Out, "Finished installation operations: %s\n", step.Name)
 
 	var lines []string
