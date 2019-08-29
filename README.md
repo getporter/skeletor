@@ -1,6 +1,8 @@
 # A Porter Mixin Skeleton
 
-This repository contains the skeleton structure of a Porter Mixin. You can clone this repository and use it as a starting point to build new mixins. The structure of this project matches closely with existing Porter Mixins like [Porter Azure](https://github.com/deislabs/porter-azure), [Porter Helm](https://github.com/deislabs/porter-helm), and [Porter Terraform](https://github.com/deislabs/porter-terraform).
+This repository contains the skeleton structure of a Porter Mixin. You can clone
+this repository and use it as a starting point to build new mixins. The
+structure of this project matches closely with existing Porter [Mixins](https://porter.sh/mixins).
 
 1. Create a new repository in GitHub [using this repository as a
    template](https://help.github.com/en/articles/creating-a-repository-from-a-template).
@@ -8,6 +10,7 @@ This repository contains the skeleton structure of a Porter Mixin. You can clone
    Go 1.11, clone it into your GOPATH such as
    ~/go/src/github.com/YOURNAME/YOURMIXIN. If you are using Go 1.12+ with go
    modules, you may chose to clone it outside of the GOPATH.
+1. Run `dep ensure`. Check-in `Gopkg.lock` and `vendor`.
 1. Rename the `cmd/skeletor` and `pkg/skeletor` directories to `cmd/YOURMIXIN` and
    `pkg/YOURMIXIN`.
 1. Find the text `github.com/deislabs/pkg/skeletor` in the repository and change it to 
