@@ -1,9 +1,10 @@
-install:
+action:
   - skeletor:
       description: "Summon Minion"
-      name: "man-e-faces"
-      parameters:
+      arguments:
+      - "man-e-faces"
+      flags:
         species: "human"
       outputs:
         - name: "VICTORY"
-          key: "VICTORY_STATUS"
+          jsonPath: "$Id"

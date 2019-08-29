@@ -25,37 +25,24 @@ structure of this project matches closely with existing Porter [Mixins](https://
 
 ## Customize your mixin
 
-Start by modifying the `InstallArguments` struct defined in
-`pkg/skeletor/install.go`. This structure defines the yaml snippet for your
-mixin. Take a look at the helm mixin to get a feel for what you can do 
+This mixin is ready to wrap an existing command-line tool. The shortest path
+would be to edit `build.go` to add the instructions to download the tool
+and you are all set. It will look and feel like the [gcloud](https://porter.sh/mixins/gcloud) 
+or [aws](https://porter.sh/mixins/aws) mixins, both of which are built on top of the exec mixin.
 
-https://github.com/deislabs/porter-helm/blob/7c5a656f0c38d23e7d4efc8a4ba26d03f06c06e8/pkg/helm/install.go#L20-L32
-
-Next you can use the properties that you added in the `Install` function. Look
-for the `TODO` in that function to know where to put your code. For
-many mixins, this may end up being a call out to an executable in the
-invocationImage but it could be an API call or something else too. Here is
-another example from the helm mixin, which uses the yaml input to build a call
-to the helm executable.
-
-https://github.com/deislabs/porter-helm/blob/7c5a656f0c38d23e7d4efc8a4ba26d03f06c06e8/pkg/helm/install.go#L55
-
-If your mixin requires anything installed in the invocation image, for example a
-client tool like `helm`, edit the `Build` function in `pkg/skeletor/build.go`.
+Edit the `Build` function in `pkg/skeletor/build.go`.
 Here you can add any Dockerfile lines that you require to download and install
 additional tools, configuration files, etc necessary for your mixin. The Build
 function should write the Dockerfile lines to `m.Out` which is a pipe from the
 mixin back to porter.
 
-Here is an example from the helm mixin, where it downloads a particular version
-of the helm binary and initialize the helm client.
+Here is an example from the aws mixin, where it downloads the latest version of
+of the aws binary and installs it:
 
-https://github.com/deislabs/porter-helm/blob/7c5a656f0c38d23e7d4efc8a4ba26d03f06c06e8/pkg/helm/build.go#L7-L19
+https://github.com/deislabs/porter-aws/blob/001c19bfe06d248143353a55f07a42c913579481/pkg/aws/build.go#L7
 
 This is enough to have a working mixin. Run `make build install` and then test
-it out with a bundle. Once you have a feel for it, you will want to implement
-upgrade and uninstall as well, most likely reusing the same code from install
-though that is up to you.
+it out with a bundle.
 
 That will get you started but make sure to read the mixin developer
 documentation for how to create a full featured mixin:
@@ -70,12 +57,13 @@ In the `cmd/skeletor` directory, you will find a cli built using [spf13/cobra](h
 
 * build
 * schema
-* verison
+* version
 * install
 * upgrade
-* delete
+* invoke
+* uninstall
 
-Each of these command implementations have a corresponding Mixin implemention in the `pkg/skeletor` directory. Each of the commands above is wired into an empty implementation in `pkg/skeletor` that needs to be completed. In order to build a new Mixin, you need to complete these implementations with the relevant technology. For example, to build a [Cloud Formation](https://aws.amazon.com/cloudformation/) mixin, you might implement the methods in `pkg/skeletor` using the [AWS Go SDK](https://docs.aws.amazon.com/sdk-for-go/api/service/cloudformation/).
+Each of these command implementations have a corresponding Mixin implementation in the `pkg/skeletor` directory. Each of the commands above is wired into an empty implementation in `pkg/skeletor` that needs to be completed. In order to build a new Mixin, you need to complete these implementations with the relevant technology. For example, to build a [Cloud Formation](https://aws.amazon.com/cloudformation/) mixin, you might implement the methods in `pkg/skeletor` using the [AWS Go SDK](https://docs.aws.amazon.com/sdk-for-go/api/service/cloudformation/).
 
 ## Provided capabilities
 

@@ -2,12 +2,7 @@
 package skeletor
 
 import (
-	"bufio"
-	"io/ioutil"
-
 	"github.com/deislabs/porter/pkg/context"
-
-	"github.com/pkg/errors"
 )
 
 type Mixin struct {
@@ -21,10 +16,4 @@ func New() (*Mixin, error) {
 		Context: context.New(),
 	}, nil
 
-}
-
-func (m *Mixin) getPayloadData() ([]byte, error) {
-	reader := bufio.NewReader(m.In)
-	data, err := ioutil.ReadAll(reader)
-	return data, errors.Wrap(err, "could not read the payload from STDIN")
 }

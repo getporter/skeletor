@@ -1,8 +1,0 @@
-skeletor:
-  description: "Summon Minion"
-  name: "man-e-faces"
-  parameters:
-    species: "human"
-  outputs:
-    - name: "VICTORY"
-      key: "VICTORY_STATUS"

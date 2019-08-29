@@ -5,10 +5,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func buildUninstallCommand(m *skeletor.Mixin) *cobra.Command {
+func buildUpgradeCommand(m *skeletor.Mixin) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "uninstall",
-		Short: "Execute the uninstall functionality of this mixin",
+		Use:   "upgrade",
+		Short: "Execute the invoke functionality of this mixin",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return m.Execute()
 		},
