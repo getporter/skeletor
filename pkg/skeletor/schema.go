@@ -20,7 +20,7 @@ func (m *Mixin) PrintSchema() error {
 func (m *Mixin) GetSchema() (string, error) {
 	t := packr.New("schema", "./schema")
 
-	b, err := t.Find("skeletor.json")
+	b, err := t.Find("schema.json")
 	if err != nil {
 		return "", err
 	}

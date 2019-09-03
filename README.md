@@ -10,12 +10,13 @@ structure of this project matches closely with existing Porter [Mixins](https://
    Go 1.11, clone it into your GOPATH such as
    ~/go/src/github.com/YOURNAME/YOURMIXIN. If you are using Go 1.12+ with go
    modules, you may chose to clone it outside of the GOPATH.
-1. Run `dep ensure`. Check-in `Gopkg.lock` and `vendor`.
 1. Rename the `cmd/skeletor` and `pkg/skeletor` directories to `cmd/YOURMIXIN` and
    `pkg/YOURMIXIN`.
-1. Find the text `github.com/deislabs/pkg/skeletor` in the repository and change it to 
-    `github.com/YOURNAME/pkg/YOURMIXIN`.
+1. Rename `pkg/YOURMIXIN/schema/schem`
+1. Find the text `github.com/deislabs/porter-skeletor/pkg/skeletor` in the repository and change it to 
+    `github.com/YOURNAME/YOURREPO/pkg/YOURMIXIN`.
 1. Find any remaining `skeletor` text in the repository and replace it with `YOURMIXIN`.
+1. Run `dep ensure`. Check-in `Gopkg.lock` and `vendor`.
 1. Run `make build xbuild test` to try out all the make targets and
    verify that everything executes without failing.
 1. Run `make install` to install your mixin into the Porter home directory. If
@@ -79,7 +80,7 @@ The project already includes [Packr V2](https://github.com/gobuffalo/packr/tree/
 
 ### Basic Schema
 
-The project provides an implementation of the `skeletor schema` command that is mostly functional. To fully implement this for your mixin, you simply need to provide a valid JSON schema. For reference, consult `pkg/skeletor/schema/skeletor.json`.
+The project provides an implementation of the `skeletor schema` command that is mostly functional. To fully implement this for your mixin, you simply need to provide a valid JSON schema. For reference, consult `pkg/skeletor/schema/schema.json`.
 
 ### Basic Tests
 
