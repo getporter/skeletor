@@ -30,7 +30,7 @@ endif
 REGISTRY ?= $(USER)
 
 .PHONY: build
-build: build-client build-runtime
+build: build-client build-runtime clean-packr
 
 build-runtime: generate
 	mkdir -p $(BINDIR)
@@ -54,23 +54,30 @@ xbuild-all:
 		$(foreach ARCH, $(SUPPORTED_ARCHES), \
 				$(MAKE) $(MAKE_OPTS) CLIENT_PLATFORM=$(OS) CLIENT_ARCH=$(ARCH) MIXIN=$(MIXIN) xbuild; \
 		))
+	$(MAKE) clean-packr
 
 xbuild: $(BINDIR)/$(VERSION)/$(MIXIN)-$(CLIENT_PLATFORM)-$(CLIENT_ARCH)$(FILE_EXT)
 $(BINDIR)/$(VERSION)/$(MIXIN)-$(CLIENT_PLATFORM)-$(CLIENT_ARCH)$(FILE_EXT):
 	mkdir -p $(dir $@)
 	GOOS=$(CLIENT_PLATFORM) GOARCH=$(CLIENT_ARCH) $(XBUILD) -o $@ ./cmd/$(MIXIN)
 
+verify: verify-vendor
+
+verify-vendor: clean-packr dep
+	dep check
+
+HAS_DEP := $(shell command -v dep)
+dep:
+ifndef HAS_DEP
+	curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+endif
+	dep version
+
 test: test-unit
 	$(BINDIR)/$(MIXIN)$(FILE_EXT) version
 
 test-unit: build
 	go test ./...
-
-HAS_JSONPP := $(shell command -v jsonpp)
-jsonpp:
-ifndef HAS_JSONPP
-	go get -u github.com/jmhodges/jsonpp
-endif
 
 publish: bin/porter$(FILE_EXT)
 	# The following demonstrates how to publish a mixin. As an example, we show how to publush to azure. 
@@ -99,5 +106,8 @@ install:
 	install $(BINDIR)/$(MIXIN)$(FILE_EXT) $(PORTER_HOME)/mixins/$(MIXIN)/$(MIXIN)$(FILE_EXT)
 	install $(BINDIR)/$(MIXIN)-runtime$(FILE_EXT) $(PORTER_HOME)/mixins/$(MIXIN)/$(MIXIN)-runtime$(FILE_EXT)
 
-clean:
+clean: clean-packr
 	-rm -fr bin/
+
+clean-packr: packr2
+	cd pkg/skeletor && packr2 clean
