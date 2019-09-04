@@ -1,4 +1,4 @@
-action:
+install:
   - skeletor:
       description: "Summon Minion"
       arguments:

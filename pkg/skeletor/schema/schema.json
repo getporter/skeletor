@@ -4,28 +4,7 @@
     "installStep": {
       "type": "object",
       "properties": {
-        "skeletor": { 
-          "type": "object",
-          "properties": {
-            "description": {
-              "$ref": "#/definitions/stepDescription"
-            },
-            "name": {
-              "type": "string"
-            },
-            "parameters": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string"
-              }
-            }
-          },
-          "additionalProperties": false,
-          "required": [
-            "name",
-            "parameters"
-          ]
-        }
+        "skeletor": {"$ref": "#/definitions/skeletor"}
       },
       "required": [
         "skeletor"
@@ -33,34 +12,94 @@
       "additionalProperties": false
     },
     "upgradeStep": {
-      "$ref": "#/definitions/unimplementedStep"
-    },
-    "uninstallStep": {
-      "$ref": "#/definitions/unimplementedStep"
-    },
-    "unimplementedStep": {
       "type": "object",
       "properties": {
-        "skeletor": {
-          "type": "object",
-          "properties": {
-            "description": {
-              "$ref": "#/definitions/stepDescription"
-            }
-          },
-          "additionalProperties": false,
-          "required": [
-            "description"
-          ]
-        }
+        "skeletor": {"$ref": "#/definitions/skeletor"}
       },
       "required": [
         "skeletor"
-      ]
+      ],
+      "additionalProperties": false
+    },
+    "invokeStep": {
+      "type": "object",
+      "properties": {
+        "skeletor": {"$ref": "#/definitions/skeletor"}
+      },
+      "required": [
+        "skeletor"
+      ],
+      "additionalProperties": false
+    },
+    "uninstallStep": {
+      "type": "object",
+      "properties": {
+        "skeletor": {"$ref": "#/definitions/skeletor"}
+      },
+      "required": [
+        "skeletor"
+      ],
+      "additionalProperties": false
     },
     "stepDescription": {
       "type": "string",
       "minLength": 1
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "jsonPath": {
+            "type": "string"
+          },
+          "regex": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ],
+        "oneOf": [
+          { "required": [ "jsonPath" ] },
+          { "required": [ "regex" ] },
+          { "required": [ "path" ] }
+        ]
+      }
+    },
+    "skeletor": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "$ref": "#/definitions/stepDescription"
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "flags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": ["null","boolean","number","string"]
+          }
+        },
+        "outputs": {
+          "$ref": "#/definitions/outputs"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "description"
+      ]
     }
   },
   "type": "object",
@@ -81,6 +120,14 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/uninstallStep"
+      }
+    }
+  },
+  "patternProperties": {
+    ".*": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/invokeStep"
       }
     }
   },
