@@ -73,6 +73,9 @@ ifndef HAS_DEP
 endif
 	dep version
 
+vendor: dep
+	dep ensure
+
 test: test-unit
 	$(BINDIR)/$(MIXIN)$(FILE_EXT) version
 
