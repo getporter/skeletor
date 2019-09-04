@@ -73,6 +73,9 @@ ifndef HAS_DEP
 endif
 	dep version
 
+vendor: dep
+	dep ensure
+
 test: test-unit
 	$(BINDIR)/$(MIXIN)$(FILE_EXT) version
 
@@ -80,7 +83,7 @@ test-unit: build
 	go test ./...
 
 publish: bin/porter$(FILE_EXT)
-	# The following demonstrates how to publish a mixin. As an example, we show how to publush to azure. 
+	# The following demonstrates how to publish a mixin. As an example, we show how to publish to azure.
 	# The porter mixins feed generate command is used to build an ATOM feed for sharing mixins once published
 
 	# AZURE_STORAGE_CONNECTION_STRING will be used for auth in the following commands

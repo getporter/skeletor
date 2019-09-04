@@ -83,7 +83,7 @@ type Output struct {
 	Name string `yaml:"name"`
 
 	// See https://porter.sh/mixins/exec/#outputs
-	// TODO: If your mixin doesn't support these output types, you can remove these and the interface assertions above
+	// TODO: If your mixin doesn't support these output types, you can remove these and the interface assertions above, and from #/definitions/outputs in schema.json
 	JsonPath string `yaml:"jsonPath,omitempty"`
 	FilePath string `yaml:"path,omitempty"`
 	Regex    string `yaml:"regex,omitempty"`

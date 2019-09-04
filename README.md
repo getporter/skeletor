@@ -37,6 +37,8 @@ additional tools, configuration files, etc necessary for your mixin. The Build
 function should write the Dockerfile lines to `m.Out` which is a pipe from the
 mixin back to porter.
 
+Search for `TODO` in the code and follow the instructions to customize the mixin.
+
 Here is an example from the aws mixin, where it downloads the latest version of
 of the aws binary and installs it:
 
