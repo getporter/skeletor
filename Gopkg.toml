@@ -5,7 +5,7 @@
 
 [[constraint]]
   name = "github.com/deislabs/porter"
-  version = "v0.13.0-beta.1"
+  version = "v0.17.0-beta.1"
 
 [prune]
   non-go = true
