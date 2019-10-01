@@ -12,10 +12,11 @@ structure of this project matches closely with existing Porter [Mixins](https://
    modules, you may chose to clone it outside of the GOPATH.
 1. Rename the `cmd/skeletor` and `pkg/skeletor` directories to `cmd/YOURMIXIN` and
    `pkg/YOURMIXIN`.
-1. Rename `pkg/YOURMIXIN/schema/schem`
 1. Find the text `github.com/deislabs/porter-skeletor/pkg/skeletor` in the repository and change it to 
     `github.com/YOURNAME/YOURREPO/pkg/YOURMIXIN`.
 1. Find any remaining `skeletor` text in the repository and replace it with `YOURMIXIN`.
+1. In `pkg/YOURMIXIN/version.go` replace `YOURNAME` with the name you would like displayed as the mixin
+   author. This value is displayed as the author of your mixin when `porter mixins list` is run.
 1. Run `dep ensure`. Check-in `Gopkg.lock` and `vendor`.
 1. Run `make build xbuild test` to try out all the make targets and
    verify that everything executes without failing.
