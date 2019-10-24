@@ -6,10 +6,7 @@ structure of this project matches closely with existing Porter [Mixins](https://
 
 1. Create a new repository in GitHub [using this repository as a
    template](https://help.github.com/en/articles/creating-a-repository-from-a-template).
-1. Clone your new repository following the usual Go conventions. If you are using
-   Go 1.11, clone it into your GOPATH such as
-   ~/go/src/github.com/YOURNAME/YOURMIXIN. If you are using Go 1.12+ with go
-   modules, you may chose to clone it outside of the GOPATH.
+1. We recommend using Go 1.12 without go modules.
 1. Rename the `cmd/skeletor` and `pkg/skeletor` directories to `cmd/YOURMIXIN` and
    `pkg/YOURMIXIN`.
 1. Find the text `github.com/deislabs/porter-skeletor/pkg/skeletor` in the repository and change it to 
