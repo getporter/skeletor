@@ -48,9 +48,9 @@ it out with a bundle.
 That will get you started but make sure to read the mixin developer
 documentation for how to create a full featured mixin:
 
-* [Mixin Architecture](https://porter.sh/mixin-architecture/)
-* [Mixin Commands](https://porter.sh/mixin-commands/)
-* [Distributing Mixins](https://porter.sh/mixin-distribution/)
+* [Mixin Architecture](https://porter.sh/mixin-dev-guide/architecture/)
+* [Mixin Commands](https://porter.sh/mixin-dev-guide/commands/)
+* [Distributing Mixins](https://porter.sh/mixin-dev-guide/distribution/)
 
 ## Project Structure
 
