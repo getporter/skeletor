@@ -1,7 +1,7 @@
 package skeletor
 
 import (
-	"github.com/deislabs/porter/pkg/exec/builder"
+	"get.porter.sh/porter/pkg/exec/builder"
 	yaml "gopkg.in/yaml.v2"
 )
 
