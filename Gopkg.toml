@@ -4,8 +4,8 @@
 # for detailed Gopkg.toml documentation.
 
 [[constraint]]
-  name = "github.com/deislabs/porter"
-  version = "v0.17.0-beta.1"
+  name = "get.porter.sh/porter"
+  version = "v0.22.0-beta.1"
 
 [prune]
   non-go = true

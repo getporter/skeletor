@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/deislabs/porter/pkg/exec/builder"
+	"get.porter.sh/porter/pkg/exec/builder"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
