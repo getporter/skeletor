@@ -1,6 +1,6 @@
 package skeletor
 
-// This is an example. Replace thie following with whatever steps are needed to
+// This is an example. Replace the following with whatever steps are needed to
 // install required components into
 // const dockerfileLines = `RUN apt-get update && \
 // apt-get install gnupg apt-transport-https lsb-release software-properties-common -y && \
