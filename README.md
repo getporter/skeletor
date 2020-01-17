@@ -9,11 +9,12 @@ structure of this project matches closely with existing Porter [Mixins](https://
 1. We recommend using Go 1.12 without go modules.
 1. Rename the `cmd/skeletor` and `pkg/skeletor` directories to `cmd/YOURMIXIN` and
    `pkg/YOURMIXIN`.
-1. Find the text `get.porter.sh/mixin/skeletor/pkg/skeletor` in the repository and change it to 
-    `github.com/YOURNAME/YOURREPO/pkg/YOURMIXIN`.
+1. Find the text `get.porter.sh/mixin/skeletor` in the repository and change it to
+   `github.com/YOURNAME/YOURREPO`.
 1. Find any remaining `skeletor` text in the repository and replace it with `YOURMIXIN`.
 1. In `pkg/YOURMIXIN/version.go` replace `YOURNAME` with the name you would like displayed as the mixin
    author. This value is displayed as the author of your mixin when `porter mixins list` is run.
+1. Replace the `YOURNAME` instances in `pkg/YOURMIXIN/version_test.go` with the name used above.
 1. Run `dep ensure`. Check-in `Gopkg.lock` and `vendor`.
 1. Run `make build xbuild test` to try out all the make targets and
    verify that everything executes without failing.
@@ -51,6 +52,8 @@ documentation for how to create a full featured mixin:
 * [Mixin Architecture](https://porter.sh/mixin-dev-guide/architecture/)
 * [Mixin Commands](https://porter.sh/mixin-dev-guide/commands/)
 * [Distributing Mixins](https://porter.sh/mixin-dev-guide/distribution/)
+
+Once ready for primetime, don't forget to revisit this `README.md` and update/replace it with details on your mixin.
 
 ## Project Structure
 
