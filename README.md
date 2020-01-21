@@ -6,7 +6,7 @@ structure of this project matches closely with existing Porter [Mixins](https://
 
 1. Create a new repository in GitHub [using this repository as a
    template](https://help.github.com/en/articles/creating-a-repository-from-a-template).
-1. We recommend using Go 1.13 with go modules.
+1. Go 1.13 or higher is required. You can choose to clone into the GOPATH or not according to preference.
 1. Rename the `cmd/skeletor` and `pkg/skeletor` directories to `cmd/YOURMIXIN` and
    `pkg/YOURMIXIN`.
 1. Find the text `get.porter.sh/mixin/skeletor` in the repository and change it to
