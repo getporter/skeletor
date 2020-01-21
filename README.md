@@ -6,7 +6,7 @@ structure of this project matches closely with existing Porter [Mixins](https://
 
 1. Create a new repository in GitHub [using this repository as a
    template](https://help.github.com/en/articles/creating-a-repository-from-a-template).
-1. We recommend using Go 1.12 without go modules.
+1. We recommend using Go 1.13 with go modules.
 1. Rename the `cmd/skeletor` and `pkg/skeletor` directories to `cmd/YOURMIXIN` and
    `pkg/YOURMIXIN`.
 1. Find the text `get.porter.sh/mixin/skeletor` in the repository and change it to
@@ -15,7 +15,6 @@ structure of this project matches closely with existing Porter [Mixins](https://
 1. In `pkg/YOURMIXIN/version.go` replace `YOURNAME` with the name you would like displayed as the mixin
    author. This value is displayed as the author of your mixin when `porter mixins list` is run.
 1. Replace the `YOURNAME` instances in `pkg/YOURMIXIN/version_test.go` with the name used above.
-1. Run `dep ensure`. Check-in `Gopkg.lock` and `vendor`.
 1. Run `make build xbuild test` to try out all the make targets and
    verify that everything executes without failing.
 1. Run `make install` to install your mixin into the Porter home directory. If
