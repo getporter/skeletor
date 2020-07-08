@@ -11,6 +11,7 @@ structure of this project matches closely with existing Porter [Mixins](https://
    `pkg/YOURMIXIN`.
 1. Find the text `get.porter.sh/mixin/skeletor` in the repository and change it to
    `github.com/YOURNAME/YOURREPO`.
+1. Find `PKG = get.porter.sh/mixin/$(MIXIN)` in the Makefile and change it to `PKG = github.com/YOURNAME/YOURREPO`.
 1. Find any remaining `skeletor` text in the repository and replace it with `YOURMIXIN`.
 1. In `pkg/YOURMIXIN/version.go` replace `YOURNAME` with the name you would like displayed as the mixin
    author. This value is displayed as the author of your mixin when `porter mixins list` is run.
