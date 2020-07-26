@@ -45,6 +45,8 @@ type MixinConfig struct {
 // for an invocation image using this mixin
 func (m *Mixin) Build() error {
 
+	//fmt.Fprintf(m.Out, dockerfileLines)
+
 	// ======================================================================================
 	// REMOVE THIS CODE BELOW IF YOUR MIXIN DON\'T REQUIRE A CLIENT VERSION
 	// =====================================  START =========================================
@@ -72,10 +74,10 @@ func (m *Mixin) Build() error {
 		}
 		m.ClientVersion = suppliedClientVersion
 	}
+	// Helm3 client example
+	// fmt.Fprintf(m.Out, "\nRUN curl https://get.helm.sh/helm-%s-linux-amd64.tar.gz --output helm3.tar.gz", m.ClientVersion)
+
 	// =====================================   END  =========================================
-
-	//fmt.Fprintf(m.Out, dockerfileLines)
-
 	return nil
 }
 
