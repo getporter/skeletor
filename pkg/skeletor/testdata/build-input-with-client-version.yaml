@@ -1,0 +1,8 @@
+config:
+  clientVersion: v0.0.0
+install:
+  - helm3:
+      description: "Install MySQL"
+      name: porter-ci-mysql
+      chart: stable/mysql
+      version: 0.10.2
