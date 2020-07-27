@@ -1,8 +1,12 @@
 config:
   clientVersion: v0.0.0
 install:
-  - helm3:
-      description: "Install MySQL"
-      name: porter-ci-mysql
-      chart: stable/mysql
-      version: 0.10.2
+  - skeletor:
+      description: "Summon Minion"
+      arguments:
+      - "man-e-faces"
+      flags:
+        species: "human"
+      outputs:
+        - name: "VICTORY"
+          jsonPath: "$Id"
