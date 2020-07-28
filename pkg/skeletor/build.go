@@ -2,23 +2,15 @@ package skeletor
 
 import (
 	"get.porter.sh/porter/pkg/exec/builder"
-	"github.com/Masterminds/semver"
-	"github.com/pkg/errors"
 	yaml "gopkg.in/yaml.v2"
 )
-
-// ======================================================================================
-// REMOVE THIS CODE BELOW IF YOUR MIXIN DON\'T REQUIRE A CLIENT VERSION
-// =====================================  START =========================================
-// clientVersionConstraint represents the semver constraint for the  client version
-const clientVersionConstraint string = "^v0.x"
 
 // BuildInput represents stdin passed to the mixin for the build command.
 type BuildInput struct {
 	Config MixinConfig
 }
 
-// MixinConfig represents configuration that can be set on the helm mixin in porter.yaml
+// MixinConfig represents configuration that can be set on the skeletor mixin in porter.yaml
 // mixins:
 // - skeletor:
 //	  clientVersion: "v0.0.0"
@@ -26,8 +18,6 @@ type BuildInput struct {
 type MixinConfig struct {
 	ClientVersion string `yaml:"clientVersion,omitempty"`
 }
-
-// =====================================   END  =========================================
 
 // This is an example. Replace the following with whatever steps are needed to
 // install required components into
@@ -45,11 +35,6 @@ type MixinConfig struct {
 // for an invocation image using this mixin
 func (m *Mixin) Build() error {
 
-	//fmt.Fprintf(m.Out, dockerfileLines)
-
-	// ======================================================================================
-	// REMOVE THIS CODE BELOW IF YOUR MIXIN DON\'T REQUIRE A CLIENT VERSION
-	// =====================================  START =========================================
 	// Create new Builder.
 	var input BuildInput
 
@@ -64,39 +49,10 @@ func (m *Mixin) Build() error {
 	suppliedClientVersion := input.Config.ClientVersion
 
 	if suppliedClientVersion != "" {
-		ok, err := validate(suppliedClientVersion, clientVersionConstraint)
-		if err != nil {
-			return err
-		}
-		if !ok {
-			return errors.Errorf("supplied clientVersion %q does not meet semver constraint %q",
-				suppliedClientVersion, clientVersionConstraint)
-		}
 		m.ClientVersion = suppliedClientVersion
 	}
-	// Helm3 client example
-	// fmt.Fprintf(m.Out, "\nRUN curl https://get.helm.sh/helm-%s-linux-amd64.tar.gz --output helm3.tar.gz", m.ClientVersion)
 
-	// =====================================   END  =========================================
+	//fmt.Fprintf(m.Out, dockerfileLines)
+
 	return nil
 }
-
-// ======================================================================================
-// REMOVE THIS CODE BELOW IF YOUR MIXIN DON\'T REQUIRE A CLIENT VERSION
-// =====================================  START =========================================
-// validate that the supplied clientVersion meets the supplied semver constraint
-func validate(clientVersion, constraint string) (bool, error) {
-	c, err := semver.NewConstraint(constraint)
-	if err != nil {
-		return false, errors.Wrapf(err, "unable to parse version constraint %q", constraint)
-	}
-
-	v, err := semver.NewVersion(clientVersion)
-	if err != nil {
-		return false, errors.Wrapf(err, "supplied client version %q cannot be parsed as semver", clientVersion)
-	}
-
-	return c.Check(v), nil
-}
-
-// =====================================   END  =========================================
