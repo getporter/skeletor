@@ -54,5 +54,8 @@ func (m *Mixin) Build() error {
 
 	//fmt.Fprintf(m.Out, dockerfileLines)
 
+	// Example of pulling and defining a client version for your mixin
+	// fmt.Fprintf(m.Out, "\nRUN curl https://get.helm.sh/helm-%s-linux-amd64.tar.gz --output helm3.tar.gz", m.ClientVersion)
+
 	return nil
 }
