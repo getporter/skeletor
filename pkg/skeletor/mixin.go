@@ -18,7 +18,6 @@ func New() (*Mixin, error) {
 	return &Mixin{
 		Context:       context.New(),
 		ClientVersion: defaultClientVersion,
-		//add whatever is needed here
 	}, nil
 
 }
