@@ -27,7 +27,7 @@ structure of this project matches closely with existing Porter [Mixins](https://
 
 This mixin is ready to wrap an existing command-line tool. The shortest path
 would be to edit `build.go` to add the instructions to download the tool
-and you are all set. It will look and feel like the [gcloud](https://porter.sh/mixins/gcloud) 
+and you are all set. It will look and feel like the [gcloud](https://porter.sh/mixins/gcloud)
 or [aws](https://porter.sh/mixins/aws) mixins, both of which are built on top of the exec mixin.
 
 Edit the `Build` function in `pkg/skeletor/build.go`.
@@ -35,6 +35,7 @@ Here you can add any Dockerfile lines that you require to download and install
 additional tools, configuration files, etc necessary for your mixin. The Build
 function should write the Dockerfile lines to `m.Out` which is a pipe from the
 mixin back to porter.
+You will also find the basic logic supporting mixin configuration.  Support for `clientVersion` is ready to go, which enables users to specify the version of the underlying tool/utility provided by the mixin, if applicable.
 
 Search for `TODO` in the code and follow the instructions to customize the mixin.
 
@@ -75,7 +76,7 @@ This skeleton mixin project brings some free capabilities:
 
 ### File System Access and Context
 
-Porter provides a [Context](https://github.com/deislabs/porter/tree/main/pkg/context) package that has helpful mechanisms for accessing the File System using [spf13/afero](https://github.com/spf13/afero). This makes it easy to provide mock File System implementations during testing. The Context package also provides a mechanism to encapsualte stdin, stdout and stderr so that they can easily be passed from `cmd/skeletor` code to implementing `pkg/skeletor` code.  
+Porter provides a [Context](https://github.com/deislabs/porter/tree/main/pkg/context) package that has helpful mechanisms for accessing the File System using [spf13/afero](https://github.com/spf13/afero). This makes it easy to provide mock File System implementations during testing. The Context package also provides a mechanism to encapsualte stdin, stdout and stderr so that they can easily be passed from `cmd/skeletor` code to implementing `pkg/skeletor` code.
 
 ### Template and Static Asset Handling
 
