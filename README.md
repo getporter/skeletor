@@ -35,7 +35,7 @@ Here you can add any Dockerfile lines that you require to download and install
 additional tools, configuration files, etc necessary for your mixin. The Build
 function should write the Dockerfile lines to `m.Out` which is a pipe from the
 mixin back to porter.
-You will find also `client version` basic logic ready to go, where you can support the `client version` definition for your mixing if required.
+You will also find the basic logic supporting mixin configuration.  Support for `clientVersion` is ready to go, which enables users to specify the version of the underlying tool/utility provided by the mixin, if applicable.
 
 Search for `TODO` in the code and follow the instructions to customize the mixin.
 
