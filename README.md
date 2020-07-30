@@ -15,8 +15,8 @@ structure of this project matches closely with existing Porter [Mixins](https://
 1. In `pkg/YOURMIXIN/version.go` replace `YOURNAME` with the name you would like displayed as the mixin
    author. This value is displayed as the author of your mixin when `porter mixins list` is run.
 1. Replace the `YOURNAME` instances in `pkg/YOURMIXIN/version_test.go` with the name used above.
-1. Run `make build xbuild test` to try out all the make targets and
-   verify that everything executes without failing.
+1. Run `make clean build test-unit xbuild-all test-integration` to try out all the make targets and
+   verify that everything executes without failing. You may need to fix a test string or two.
 1. Run `make install` to install your mixin into the Porter home directory. If
    you don't already have Porter installed, [install](https://porter.sh/install) it first.
 1. Now your mixin is installed, you are ready start customizing and iterating on

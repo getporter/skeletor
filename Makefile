@@ -51,7 +51,7 @@ ifndef HAS_PACKR2
 	$(GO) get -u github.com/gobuffalo/packr/v2/packr2
 endif
 
-xbuild-all:
+xbuild-all: generate
 	$(foreach OS, $(SUPPORTED_PLATFORMS), \
 		$(foreach ARCH, $(SUPPORTED_ARCHES), \
 				$(MAKE) $(MAKE_OPTS) CLIENT_PLATFORM=$(OS) CLIENT_ARCH=$(ARCH) MIXIN=$(MIXIN) xbuild; \
@@ -63,11 +63,16 @@ $(BINDIR)/$(VERSION)/$(MIXIN)-$(CLIENT_PLATFORM)-$(CLIENT_ARCH)$(FILE_EXT):
 	mkdir -p $(dir $@)
 	GOOS=$(CLIENT_PLATFORM) GOARCH=$(CLIENT_ARCH) $(XBUILD) -o $@ ./cmd/$(MIXIN)
 
-test: test-unit
+test: test-unit test-integration
 	$(BINDIR)/$(MIXIN)$(FILE_EXT) version
 
 test-unit: build
 	$(GO) test ./...
+
+test-integration: xbuild
+	# Test against the cross-built client binary that we will publish
+	cp $(BINDIR)/$(VERSION)/$(MIXIN)-$(CLIENT_PLATFORM)-$(CLIENT_ARCH)$(FILE_EXT) $(BINDIR)/$(MIXIN)$(FILE_EXT)
+	$(GO) test -tags=integration ./tests/...
 
 publish: bin/porter$(FILE_EXT)
 	# The following demonstrates how to publish a mixin. As an example, we show how to publish to azure.
