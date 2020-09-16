@@ -42,7 +42,7 @@ Search for `TODO` in the code and follow the instructions to customize the mixin
 Here is an example from the aws mixin, where it downloads the latest version of
 of the aws binary and installs it:
 
-https://github.com/deislabs/porter-aws/blob/001c19bfe06d248143353a55f07a42c913579481/pkg/aws/build.go#L7
+https://github.com/getporter/aws-mixin/blob/001c19bfe06d248143353a55f07a42c913579481/pkg/aws/build.go#L7
 
 This is enough to have a working mixin. Run `make build install` and then test
 it out with a bundle.
@@ -76,7 +76,7 @@ This skeleton mixin project brings some free capabilities:
 
 ### File System Access and Context
 
-Porter provides a [Context](https://github.com/deislabs/porter/tree/main/pkg/context) package that has helpful mechanisms for accessing the File System using [spf13/afero](https://github.com/spf13/afero). This makes it easy to provide mock File System implementations during testing. The Context package also provides a mechanism to encapsualte stdin, stdout and stderr so that they can easily be passed from `cmd/skeletor` code to implementing `pkg/skeletor` code.
+Porter provides a [Context](https://porter.sh/src/pkg/context) package that has helpful mechanisms for accessing the File System using [spf13/afero](https://github.com/spf13/afero). This makes it easy to provide mock File System implementations during testing. The Context package also provides a mechanism to encapsualte stdin, stdout and stderr so that they can easily be passed from `cmd/skeletor` code to implementing `pkg/skeletor` code.
 
 ### Template and Static Asset Handling
 
