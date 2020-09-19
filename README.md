@@ -1,5 +1,7 @@
 # A Porter Mixin Skeleton
 
+[![Build Status](https://dev.azure.com/getporter/porter/_apis/build/status/skeletor?branchName=main)](https://dev.azure.com/getporter/porter/_build/latest?definitionId=13&branchName=main)
+
 This repository contains the skeleton structure of a Porter Mixin. You can clone
 this repository and use it as a starting point to build new mixins. The
 structure of this project matches closely with existing Porter [Mixins](https://porter.sh/mixins).
