@@ -18,6 +18,7 @@ func TestMixin_UnmarshalStep(t *testing.T) {
 	var action Action
 	err = yaml.Unmarshal(b, &action)
 	require.NoError(t, err)
+	assert.Equal(t, "install", action.Name)
 	require.Len(t, action.Steps, 1)
 
 	step := action.Steps[0]
