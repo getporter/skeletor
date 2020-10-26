@@ -5,9 +5,24 @@ import (
 )
 
 var _ builder.ExecutableAction = Action{}
+var _ builder.BuildableAction = Action{}
 
 type Action struct {
-	Steps []Steps // using UnmarshalYAML so that we don't need a custom type per action
+	Name  string
+	Steps []Step // using UnmarshalYAML so that we don't need a custom type per action
+}
+
+// MarshalYAML converts the action back to a YAML representation
+// install:
+//   skeletor:
+//     ...
+func (a Action) MarshalYAML() (interface{}, error) {
+	return map[string]interface{}{a.Name: a.Steps}, nil
+}
+
+// MakeSteps builds a slice of Step for data to be unmarshaled into.
+func (a Action) MakeSteps() interface{} {
+	return &[]Step{}
 }
 
 // UnmarshalYAML takes any yaml in this form
@@ -15,16 +30,18 @@ type Action struct {
 // - skeletor: ...
 // and puts the steps into the Action.Steps field
 func (a *Action) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var steps []Steps
-	results, err := builder.UnmarshalAction(unmarshal, &steps)
+	results, err := builder.UnmarshalAction(unmarshal, a)
 	if err != nil {
 		return err
 	}
 
-	// Go doesn't have generics, nothing to see here...
-	for _, result := range results {
-		step := result.(*[]Steps)
-		a.Steps = append(a.Steps, *step...)
+	for actionName, action := range results {
+		a.Name = actionName
+		for _, result := range action {
+			step := result.(*[]Step)
+			a.Steps = append(a.Steps, *step...)
+		}
+		break // There is only 1 action
 	}
 	return nil
 }
@@ -39,34 +56,76 @@ func (a Action) GetSteps() []builder.ExecutableStep {
 	return steps
 }
 
-type Steps struct {
-	Step `yaml:"skeletor"`
-}
-
-var _ builder.ExecutableStep = Step{}
-var _ builder.StepWithOutputs = Step{}
-
 type Step struct {
-	Name        string        `yaml:"name"`
-	Description string        `yaml:"description"`
-	Arguments   []string      `yaml:"arguments,omitempty"`
-	Flags       builder.Flags `yaml:"flags,omitempty"`
-	Outputs     []Output      `yaml:"outputs,omitempty"`
+	Instruction `yaml:"skeletor"`
 }
 
-func (s Step) GetCommand() string {
+// Actions is a set of actions, and the steps, passed from Porter.
+type Actions []Action
+
+// UnmarshalYAML takes chunks of a porter.yaml file associated with this mixin
+// and populates it on the current action set.
+// install:
+//   skeletor:
+//     ...
+//   skeletor:
+//     ...
+// upgrade:
+//   skeletor:
+//     ...
+func (a *Actions) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	results, err := builder.UnmarshalAction(unmarshal, Action{})
+	if err != nil {
+		return err
+	}
+
+	for actionName, action := range results {
+		for _, result := range action {
+			s := result.(*[]Step)
+			*a = append(*a, Action{
+				Name:  actionName,
+				Steps: *s,
+			})
+		}
+	}
+	return nil
+}
+
+var _ builder.HasOrderedArguments = Instruction{}
+var _ builder.ExecutableStep = Instruction{}
+var _ builder.StepWithOutputs = Instruction{}
+
+type Instruction struct {
+	Name            string        `yaml:"name"`
+	Description     string        `yaml:"description"`
+	Arguments       []string      `yaml:"arguments,omitempty"`
+	SuffixArguments []string      `yaml:"suffix-arguments,omitempty"`
+	Flags           builder.Flags `yaml:"flags,omitempty"`
+	Outputs         []Output      `yaml:"outputs,omitempty"`
+	SuppressOutput  bool          `yaml:"suppress-output,omitempty"`
+}
+
+func (s Instruction) GetCommand() string {
 	return "skeletor"
 }
 
-func (s Step) GetArguments() []string {
+func (s Instruction) GetArguments() []string {
 	return s.Arguments
 }
 
-func (s Step) GetFlags() builder.Flags {
+func (s Instruction) GetSuffixArguments() []string {
+	return s.SuffixArguments
+}
+
+func (s Instruction) GetFlags() builder.Flags {
 	return s.Flags
 }
 
-func (s Step) GetOutputs() []builder.Output {
+func (s Instruction) SuppressesOutput() bool {
+	return s.SuppressOutput
+}
+
+func (s Instruction) GetOutputs() []builder.Output {
 	// Go doesn't have generics, nothing to see here...
 	outputs := make([]builder.Output, len(s.Outputs))
 	for i := range s.Outputs {
