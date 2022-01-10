@@ -96,17 +96,31 @@ var _ builder.ExecutableStep = Instruction{}
 var _ builder.StepWithOutputs = Instruction{}
 
 type Instruction struct {
-	Name            string        `yaml:"name"`
-	Description     string        `yaml:"description"`
-	Arguments       []string      `yaml:"arguments,omitempty"`
-	SuffixArguments []string      `yaml:"suffix-arguments,omitempty"`
-	Flags           builder.Flags `yaml:"flags,omitempty"`
-	Outputs         []Output      `yaml:"outputs,omitempty"`
-	SuppressOutput  bool          `yaml:"suppress-output,omitempty"`
+	Name        string   `yaml:"name"`
+	Description string   `yaml:"description"`
+	WorkingDir  string   `yaml:"dir,omitempty"`
+	Arguments   []string `yaml:"arguments,omitempty"`
+
+	// Useful when the CLI you are calling wants some arguments to come after flags
+	// Arguments are passed first, then Flags, then SuffixArguments.
+	SuffixArguments []string `yaml:"suffix-arguments,omitempty"`
+
+	Flags          builder.Flags `yaml:"flags,omitempty"`
+	Outputs        []Output      `yaml:"outputs,omitempty"`
+	SuppressOutput bool          `yaml:"suppress-output,omitempty"`
+
+	// Allow the user to ignore some errors
+	// Adds the ignoreError functionality from the exec mixin
+	// https://release-v1.porter.sh/mixins/exec/#ignore-error
+	builder.IgnoreErrorHandler `yaml:"ignoreError,omitempty"`
 }
 
 func (s Instruction) GetCommand() string {
 	return "skeletor"
+}
+
+func (s Instruction) GetWorkingDir() string {
+	return s.WorkingDir
 }
 
 func (s Instruction) GetArguments() []string {
