@@ -33,7 +33,7 @@ func TestMixin_Execute(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			m := NewTestMixin(t)
 
-			os.Setenv(test.ExpectedCommandEnv, tc.wantCommand)
+			m.Setenv(test.ExpectedCommandEnv, tc.wantCommand)
 			mixinInputB, err := ioutil.ReadFile(tc.file)
 			require.NoError(t, err)
 

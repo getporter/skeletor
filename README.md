@@ -8,19 +8,18 @@ structure of this project matches closely with existing Porter [Mixins](https://
 
 1. Create a new repository in GitHub [using this repository as a
    template](https://help.github.com/en/articles/creating-a-repository-from-a-template).
-1. Go 1.13 or higher is required. You can choose to clone into the GOPATH or not according to preference.
+1. Go 1.17 or higher is required. You can choose to clone into the GOPATH or not according to preference.
 1. Rename the `cmd/skeletor` and `pkg/skeletor` directories to `cmd/YOURMIXIN` and
    `pkg/YOURMIXIN`.
 1. Find the text `get.porter.sh/mixin/skeletor` in the repository and change it to
    `github.com/YOURNAME/YOURREPO`.
-1. Find `PKG = get.porter.sh/mixin/$(MIXIN)` in the Makefile and change it to `PKG = github.com/YOURNAME/YOURREPO`.
 1. Find any remaining `skeletor` text in the repository and replace it with `YOURMIXIN`.
 1. In `pkg/YOURMIXIN/version.go` replace `YOURNAME` with the name you would like displayed as the mixin
    author. This value is displayed as the author of your mixin when `porter mixins list` is run.
 1. Replace the `YOURNAME` instances in `pkg/YOURMIXIN/version_test.go` with the name used above.
-1. Run `make clean build test-unit xbuild-all test-integration` to try out all the make targets and
+1. Run `mage build test` to try out all the make targets and
    verify that everything executes without failing. You may need to fix a test string or two.
-1. Run `make install` to install your mixin into the Porter home directory. If
+1. Run `mage install` to install your mixin into the Porter home directory. If
    you don't already have Porter installed, [install](https://porter.sh/install) it first.
 1. Now your mixin is installed, you are ready start customizing and iterating on
    your mixin!
@@ -46,7 +45,7 @@ of the aws binary and installs it:
 
 https://github.com/getporter/aws-mixin/blob/001c19bfe06d248143353a55f07a42c913579481/pkg/aws/build.go#L7
 
-This is enough to have a working mixin. Run `make build install` and then test
+This is enough to have a working mixin. Run `mage build install` and then test
 it out with a bundle.
 
 That will get you started but make sure to read the mixin developer
@@ -92,6 +91,23 @@ The project provides an implementation of the `skeletor schema` command that is 
 
 The project provides some very basic test skeletons that you can use as a starting point for building tests for your mixin.
 
-### Makefile
+### Magefile
 
-The project also includes a Makefile that will can be used to both build and install the mixin. The Makefile also includes a TODO `publish` target that shows how you might publish the mixin and generate an mixin feed for easily sharing your mixin.
+The project also includes a [Magefile] that is used to build, test, and publish the mixin.
+
+### Publish
+
+You must set the `GITHUB_TOKEN` environment variable with your personal access token in order to use the default publish target.
+
+Publish uploads cross-compiled binaries of your mixin to a GitHub release.
+You must set the `PORTER_RELEASE_REPOSITORY` environment variable to your GitHub repository name, e.g. github.com/YOURNAME/YOURREPO.
+There is a placeholder in the Publish magefile target where you can set that value.
+
+Create a tag, for example `git tag v0.1.0`, and push it to your repository.
+Run `mage XBuildAll Publish` to build your mixin and upload the binaries to the github release for that tag.
+If the commit is not tagged, the release is named "canary".
+
+If you want to generate a mixin feed file (atom.xml), edit the Publish magefile target, uncomment out the rest of the function, and set the `PORTER_PACKAGES_REMOTE` environment variable to a repository where the atom.xml file should be committed.
+For example, Porter uses github.com/getporter/packages for publishing our mixin feed.
+
+[Magefile]: https://magefile.org

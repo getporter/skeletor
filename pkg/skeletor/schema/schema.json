@@ -96,10 +96,7 @@
           "$ref": "#/definitions/outputs"
         }
       },
-      "additionalProperties": false,
-      "required": [
-        "description"
-      ]
+      "additionalProperties": false
     }
   },
   "type": "object",
