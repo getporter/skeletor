@@ -93,7 +93,7 @@ The project provides some very basic test skeletons that you can use as a starti
 
 ### Magefile
 
-The project also includes a [Magefile] is used to build, test, and publish the mixin.
+The project also includes a [Magefile] that is used to build, test, and publish the mixin.
 
 ### Publish
 
