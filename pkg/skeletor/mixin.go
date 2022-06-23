@@ -1,14 +1,13 @@
-//go:generate packr2
 package skeletor
 
 import (
-	"get.porter.sh/porter/pkg/context"
+	"get.porter.sh/porter/pkg/portercontext"
 )
 
 const defaultClientVersion string = "v0.0.0"
 
 type Mixin struct {
-	*context.Context
+	*portercontext.Context
 	ClientVersion string
 	//add whatever other context/state is needed here
 }
@@ -16,7 +15,7 @@ type Mixin struct {
 // New azure mixin client, initialized with useful defaults.
 func New() (*Mixin, error) {
 	return &Mixin{
-		Context:       context.New(),
+		Context:       portercontext.New(),
 		ClientVersion: defaultClientVersion,
 	}, nil
 

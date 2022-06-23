@@ -1,8 +1,8 @@
 package main
 
 import (
-	"get.porter.sh/mixin/skeletor/pkg/skeletor"
 	"get.porter.sh/porter/pkg/porter/version"
+	"github.com/getporter/skeletor/pkg/skeletor"
 	"github.com/spf13/cobra"
 )
 

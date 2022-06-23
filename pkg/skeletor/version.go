@@ -1,10 +1,10 @@
 package skeletor
 
 import (
-	"get.porter.sh/mixin/skeletor/pkg"
 	"get.porter.sh/porter/pkg/mixin"
 	"get.porter.sh/porter/pkg/pkgmgmt"
 	"get.porter.sh/porter/pkg/porter/version"
+	"github.com/getporter/skeletor/pkg"
 )
 
 func (m *Mixin) PrintVersion(opts version.Options) error {
