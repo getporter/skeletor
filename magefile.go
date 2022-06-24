@@ -17,6 +17,11 @@ const (
 
 var magefile = mixins.NewMagefile(mixinPackage, mixinName, mixinBin)
 
+// ConfigureAgent sets up the CI server with mage and GO
+func ConfigureAgent() {
+	magefile.ConfigureAgent()
+}
+
 // Build the mixin
 func Build() {
 	magefile.Build()

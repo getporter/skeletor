@@ -12,7 +12,7 @@ replace (
 )
 
 require (
-	get.porter.sh/magefiles v0.3.0
+	get.porter.sh/magefiles v0.3.1
 	get.porter.sh/porter v1.0.0-alpha.22
 	github.com/ghodss/yaml v1.0.0
 	github.com/spf13/cobra v1.2.1
