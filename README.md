@@ -11,8 +11,6 @@ structure of this project matches closely with existing Porter [Mixins](https://
 1. Go 1.17 or higher is required. You can choose to clone into the GOPATH or not according to preference.
 1. Rename the `cmd/skeletor` and `pkg/skeletor` directories to `cmd/YOURMIXIN` and
    `pkg/YOURMIXIN`.
-1. Find the text `get.porter.sh/mixin/skeletor` in the repository and change it to
-   `github.com/YOURNAME/YOURREPO`.
 1. Find any remaining `skeletor` text in the repository and replace it with `YOURMIXIN`.
 1. In `pkg/YOURMIXIN/version.go` replace `YOURNAME` with the name you would like displayed as the mixin
    author. This value is displayed as the author of your mixin when `porter mixins list` is run.
@@ -77,11 +75,11 @@ This skeleton mixin project brings some free capabilities:
 
 ### File System Access and Context
 
-Porter provides a [Context](https://porter.sh/src/pkg/context) package that has helpful mechanisms for accessing the File System using [spf13/afero](https://github.com/spf13/afero). This makes it easy to provide mock File System implementations during testing. The Context package also provides a mechanism to encapsualte stdin, stdout and stderr so that they can easily be passed from `cmd/skeletor` code to implementing `pkg/skeletor` code.
+Porter provides the [portercontext](https://porter.sh/src/pkg/portercontext) package that has helpful mechanisms for accessing the File System using [spf13/afero](https://github.com/spf13/afero). This makes it easy to provide mock File System implementations during testing. The portercontext package also provides a mechanism to encapsulate stdin, stdout and stderr so that they can easily be passed from `cmd/skeletor` code to implementing `pkg/skeletor` code.
 
 ### Template and Static Asset Handling
 
-The project already includes [Packr V2](https://github.com/gobuffalo/packr/tree/master/v2) for dealing with static files, such as templates or other content that is best modeled outside of a Go file. You can see an example of this in `pkg/skeletor/schema.go`.
+The project go:embed for dealing with static files, such as templates or other content that is best modeled outside of a Go file. You can see an example of this in `pkg/skeletor/schema.go`.
 
 ### Basic Schema
 

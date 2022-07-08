@@ -4,9 +4,9 @@ import (
 	"strings"
 	"testing"
 
-	"get.porter.sh/mixin/skeletor/pkg"
 	"get.porter.sh/porter/pkg/porter/version"
 	"get.porter.sh/porter/pkg/printer"
+	"github.com/getporter/skeletor/pkg"
 	"github.com/stretchr/testify/require"
 )
 

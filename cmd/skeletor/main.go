@@ -5,7 +5,7 @@ import (
 	"io"
 	"os"
 
-	"get.porter.sh/mixin/skeletor/pkg/skeletor"
+	"github.com/getporter/skeletor/pkg/skeletor"
 	"github.com/spf13/cobra"
 )
 

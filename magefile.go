@@ -1,46 +1,48 @@
-// +build mage
+//go:build mage
 
 package main
 
 import (
 	"os"
 
-	"get.porter.sh/porter/mage/mixins"
-	"get.porter.sh/porter/mage/releases"
-
-	// Import common targets that all mixins should expose to the user
-	// mage:import
-	_ "get.porter.sh/porter/mage"
+	"get.porter.sh/magefiles/mixins"
+	"get.porter.sh/magefiles/releases"
 )
 
 const (
 	mixinName    = "skeletor"
-	mixinPackage = "get.porter.sh/mixin/skeletor"
+	mixinPackage = "github.com/getporter/skeletor"
 	mixinBin     = "bin/mixins/" + mixinName
 )
 
 var magefile = mixins.NewMagefile(mixinPackage, mixinName, mixinBin)
+
+// ConfigureAgent sets up the CI server with mage and GO
+func ConfigureAgent() {
+	magefile.ConfigureAgent()
+}
 
 // Build the mixin
 func Build() {
 	magefile.Build()
 }
 
-// Cross-compile the mixin before a release
+// XBuildAll cross-compiles the mixin before a release
 func XBuildAll() {
 	magefile.XBuildAll()
 }
 
-// Run unit tests
+// TestUnit runs the unit tests
 func TestUnit() {
 	magefile.TestUnit()
 }
 
+// Test runs all types of tests
 func Test() {
 	magefile.Test()
 }
 
-// Publish the mixin to github
+// Publish the mixin to GitHub
 func Publish() {
 	// You can test out publishing locally by overriding PORTER_RELEASE_REPOSITORY and PORTER_PACKAGES_REMOTE
 	if _, overridden := os.LookupEnv(releases.ReleaseRepository); !overridden {
@@ -56,12 +58,19 @@ func Publish() {
 	//magefile.PublishMixinFeed()
 }
 
+// TestPublish publishes the project to the specified GitHub username.
+// If your mixin is official hosted in a repository under your username, you will need to manually
+// override PORTER_RELEASE_REPOSITORY and PORTER_PACKAGES_REMOTE to test out publishing safely.
+func TestPublish(username string) {
+	magefile.TestPublish(username)
+}
+
 // Install the mixin
 func Install() {
 	magefile.Install()
 }
 
-// Remove generated build files
+// Clean removes generated build files
 func Clean() {
 	magefile.Clean()
 }
