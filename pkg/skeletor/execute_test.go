@@ -2,6 +2,7 @@ package skeletor
 
 import (
 	"bytes"
+	"context"
 	"io/ioutil"
 	"os"
 	"path"
@@ -31,6 +32,7 @@ func TestMixin_Execute(t *testing.T) {
 	defer os.Unsetenv(test.ExpectedCommandEnv)
 	for _, tc := range testcases {
 		t.Run(tc.name, func(t *testing.T) {
+			ctx := context.Background()
 			m := NewTestMixin(t)
 
 			m.Setenv(test.ExpectedCommandEnv, tc.wantCommand)
@@ -39,7 +41,7 @@ func TestMixin_Execute(t *testing.T) {
 
 			m.In = bytes.NewBuffer(mixinInputB)
 
-			err = m.Execute()
+			err = m.Execute(ctx)
 			require.NoError(t, err, "execute failed")
 
 			if tc.wantOutput == "" {

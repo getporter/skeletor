@@ -1,8 +1,10 @@
 package skeletor
 
 import (
+	"context"
+
 	"get.porter.sh/porter/pkg/exec/builder"
-	yaml "gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v2"
 )
 
 // BuildInput represents stdin passed to the mixin for the build command.
@@ -33,12 +35,12 @@ type MixinConfig struct {
 
 // Build will generate the necessary Dockerfile lines
 // for an invocation image using this mixin
-func (m *Mixin) Build() error {
+func (m *Mixin) Build(ctx context.Context) error {
 
 	// Create new Builder.
 	var input BuildInput
 
-	err := builder.LoadAction(m.Context, "", func(contents []byte) (interface{}, error) {
+	err := builder.LoadAction(ctx, m.RuntimeConfig, "", func(contents []byte) (interface{}, error) {
 		err := yaml.Unmarshal(contents, &input)
 		return &input, err
 	})

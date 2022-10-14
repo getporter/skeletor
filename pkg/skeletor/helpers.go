@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"get.porter.sh/porter/pkg/portercontext"
+	"get.porter.sh/porter/pkg/runtime"
 )
 
 type TestMixin struct {
@@ -13,12 +14,12 @@ type TestMixin struct {
 
 // NewTestMixin initializes a mixin test client, with the output buffered, and an in-memory file system.
 func NewTestMixin(t *testing.T) *TestMixin {
-	c := portercontext.NewTestContext(t)
+	c := runtime.NewTestRuntimeConfig(t)
 	m := &TestMixin{
 		Mixin: &Mixin{
-			Context: c.Context,
+			RuntimeConfig: c.RuntimeConfig,
 		},
-		TestContext: c,
+		TestContext: c.TestContext,
 	}
 
 	return m
