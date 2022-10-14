@@ -10,7 +10,7 @@ func buildInvokeCommand(m *skeletor.Mixin) *cobra.Command {
 		Use:   "invoke",
 		Short: "Execute the invoke functionality of this mixin",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return m.Execute()
+			return m.Execute(cmd.Context())
 		},
 	}
 

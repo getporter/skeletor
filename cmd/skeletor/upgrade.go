@@ -10,7 +10,7 @@ func buildUpgradeCommand(m *skeletor.Mixin) *cobra.Command {
 		Use:   "upgrade",
 		Short: "Execute the invoke functionality of this mixin",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return m.Execute()
+			return m.Execute(cmd.Context())
 		},
 	}
 	return cmd

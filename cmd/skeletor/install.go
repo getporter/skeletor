@@ -18,7 +18,7 @@ func buildInstallCommand(m *skeletor.Mixin) *cobra.Command {
 			return nil
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return m.Execute()
+			return m.Execute(cmd.Context())
 		},
 	}
 	return cmd
