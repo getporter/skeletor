@@ -17,7 +17,8 @@ func main() {
 	run := func() int {
 		ctx := context.Background()
 		m := skeletor.New()
-		if err := m.ConfigureLogging(ctx); err != nil {
+		ctx, err := m.ConfigureLogging(ctx)
+		if err != nil {
 			fmt.Println(err)
 			os.Exit(cli.ExitCodeErr)
 		}
