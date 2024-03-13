@@ -1,0 +1,29 @@
+name: porter/skeletor
+on:
+  pull_request:
+    branches:
+    - main
+env:
+  PORTER_PACKAGE_REMOTE: https://github.com/getporter/test-packages.git
+  PORTER_RELEASE_REPOSITORY: github.com/getporter/skeletor
+  GOVERSION: 1.19.2
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4.1.0
+      with:
+        go-version: "${{ env.GOVERSION }}"
+        cache: true
+    - name: Configure Agent
+      run: go run mage.go ConfigureAgent
+    - name: Test
+      run: mage Test
+    - name: Cross Compile
+      run: mage XBuildAll
+    - name: Publish
+      if: success() && github.event_name != 'PullRequest'
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      run: mage Publish

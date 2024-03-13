@@ -4,9 +4,6 @@ on:
     branches:
     - main
     - v*
-  pull_request:
-    branches:
-    - main
 env:
   PORTER_PACKAGE_REMOTE: https://github.com/getporter/test-packages.git
   PORTER_RELEASE_REPOSITORY: github.com/getporter/skeletor
