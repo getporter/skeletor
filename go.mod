@@ -2,7 +2,7 @@ module github.com/getporter/skeletor
 
 go 1.21
 
-toolchain go1.22.5
+toolchain go1.21.3
 
 // These are replace directives copied from porter
 // When you use a newer version of Porter, if you run into trouble with go mod tidy
