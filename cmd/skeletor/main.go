@@ -73,6 +73,7 @@ func buildRootCommand(m *skeletor.Mixin, in io.Reader) *cobra.Command {
 	cmd.AddCommand(buildInvokeCommand(m))
 	cmd.AddCommand(buildUpgradeCommand(m))
 	cmd.AddCommand(buildUninstallCommand(m))
+	cmd.AddCommand(buildLintCommand(m))
 
 	return cmd
 }

@@ -7,9 +7,10 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-// BuildInput represents stdin passed to the mixin for the build command.
+// BuildInput represents stdin passed to the mixin for the build and lint commands.
 type BuildInput struct {
-	Config MixinConfig
+	Config  MixinConfig
+	Actions Actions `yaml:"actions"`
 }
 
 // MixinConfig represents configuration that can be set on the skeletor mixin in porter.yaml
